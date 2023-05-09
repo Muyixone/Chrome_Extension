@@ -18,9 +18,23 @@ button {
     margin: 5px 0;
     padding: 10px 15px;
     border: none;
+}
+/* #input-btn {
     color: #f3f3f3;
     background-color: #8cd1e6;
-    font-weight: bold;
+    font-weight: bold;    
+} */
+#del-btn, #input-btn {
+    color: #8cd1e6;
+    border: 2px solid #8cd1e6;
+    background-color: #ffffff;
+}
+#del-btn:hover, 
+#input-btn:hover{
+    background-color: #8cd1e6;
+    color: #fff;
+    transition: all 0.3s ease-in;
+    cursor: pointer;
 }
 
 ul {
