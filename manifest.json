@@ -1,9 +1,12 @@
 {
     "manifest_version": 3,
     "version": "1.0",
-    "name": "Url bookmark",
+    "name": "Url bookmarker",
     "action": {
         "default_popup": "index.html",
         "default_icon": "bookmark.png"
-    }
+    },
+    "permissions": [
+        "tabs"
+    ]
 }

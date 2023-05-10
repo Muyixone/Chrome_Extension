@@ -2,6 +2,7 @@ const saveInputButton = document.getElementById('input-btn');
 const inputEl = document.getElementById('input-el');
 const ulEl = document.getElementById('ul-el');
 const deleteItems = document.getElementById('del-btn');
+const saveTab = document.getElementById('save_tab-btn');
 let myLeads = [];
 let localStorageFile = JSON.parse(localStorage.getItem('myLeads'));
 
@@ -10,18 +11,12 @@ if (localStorageFile) {
   renderItems(myLeads);
 }
 
-saveInputButton.addEventListener('click', () => {
-  //Check if input field is not empty
-  if (!inputEl.value) {
-    return;
-  }
-  myLeads.push(inputEl.value);
-  inputEl.value = '';
-  renderItems(myLeads);
-
-  // Save data to local storage
-  // convert myLeads array to string as local storage can only store values as strings
-  localStorage.setItem('myLeads', JSON.stringify(myLeads));
+saveTab.addEventListener('click', () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    myLeads.push(tabs[0].url);
+    localStorage.setItem('myLeads', JSON.stringify(myLeads));
+    renderItems(myLeads);
+  });
 });
 
 function renderItems(leads) {
@@ -37,4 +32,19 @@ deleteItems.addEventListener('click', () => {
   localStorage.clear();
   myLeads.length = 0;
   ulEl.innerHTML = '';
+});
+
+saveInputButton.addEventListener('click', () => {
+  //Check if input field is not empty
+  if (!inputEl.value) {
+    return;
+  }
+  myLeads.push(inputEl.value);
+  inputEl.value = '';
+  // Save data to local storage
+  // convert myLeads array to string
+  // as local storage can only store values as strings
+  localStorage.setItem('myLeads', JSON.stringify(myLeads));
+
+  renderItems(myLeads);
 });
